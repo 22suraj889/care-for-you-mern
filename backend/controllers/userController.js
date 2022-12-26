@@ -14,11 +14,13 @@ const login = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
+      console.log("User not found");
       return res.status(404).json({ message: "User not found" });
     }
 
     const isCorrectPassword = await bcrypt.compare(password, user.password);
     if (!isCorrectPassword) {
+      console.log("Password is incorrect");
       return res.status(404).json({ message: "Password is incorrect" });
     }
 
@@ -32,21 +34,21 @@ const login = async (req, res) => {
 // user registration
 const register = async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
-  console.log(req.body);
 
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
+      console.log("User already registered");
       return res.status(404).json({ message: "User already exists" });
     }
 
     if (password !== confirmPassword) {
+      console.log("Password do not match");
       return res.status(403).json({ message: "passwords do not match" });
     }
 
     // encrypting the password
     const hashedPassword = await bcrypt.hash(password, 12);
-    console.log(hashedPassword);
     const newUser = await User.create({
       name,
       email,

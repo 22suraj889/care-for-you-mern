@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Input from "./Input";
 import { Button } from "@material-ui/core";
+import { useDispatch } from "react-redux";
 import "./Auth.css";
+import { login, logout, register } from "../../Actions/AuthActions";
 
 const initialData = {
   name: "",
@@ -14,6 +16,8 @@ const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [authFormData, setAuthFormData] = useState(initialData);
   const [authErrorMessage, setAuthErrorMessage] = useState("");
+
+  const dispatch = useDispatch();
   const onSubmitHandler = (e) => {
     e.preventDefault();
     if (authFormData.name.length < 3 && !showLogin) {
@@ -25,7 +29,11 @@ const Auth = () => {
     } else if (!authFormData.confirmPassword && !showLogin) {
       setAuthErrorMessage("Confirm password field is empty");
     } else {
-      console.log(authFormData);
+      if (showLogin) {
+        dispatch(login(authFormData));
+      } else {
+        dispatch(register(authFormData));
+      }
       setAuthFormData(initialData);
     }
   };
@@ -82,6 +90,7 @@ const Auth = () => {
           ? "Don't have the account? Click to register!"
           : "Already have the account? Click to login!"}
       </Button>
+      <Button onClick={() => dispatch(logout())}>Logout</Button>
     </form>
   );
 };
