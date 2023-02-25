@@ -4,6 +4,7 @@ import { Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import "./Auth.css";
 import { login, logout, register } from "../../Actions/AuthActions";
+import { useNavigate } from "react-router-dom";
 
 const initialData = {
   name: "",
@@ -18,6 +19,7 @@ const Auth = () => {
   const [authErrorMessage, setAuthErrorMessage] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const onSubmitHandler = (e) => {
     e.preventDefault();
     if (authFormData.name.length < 3 && !showLogin) {
@@ -30,9 +32,9 @@ const Auth = () => {
       setAuthErrorMessage("Confirm password field is empty");
     } else {
       if (showLogin) {
-        dispatch(login(authFormData));
+        dispatch(login(authFormData, navigate));
       } else {
-        dispatch(register(authFormData));
+        dispatch(register(authFormData, navigate));
       }
       setAuthFormData(initialData);
     }
@@ -90,7 +92,6 @@ const Auth = () => {
           ? "Don't have the account? Click to register!"
           : "Already have the account? Click to login!"}
       </Button>
-      <Button onClick={() => dispatch(logout())}>Logout</Button>
     </form>
   );
 };
