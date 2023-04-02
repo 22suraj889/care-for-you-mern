@@ -13,7 +13,7 @@ export default function Review(props) {
         getAriaLabel={() => "Cleanliness Index"}
         value={value}
         valueLabelDisplay="auto"
-        max={10}
+        max={5}
       />
     </Box>
   );

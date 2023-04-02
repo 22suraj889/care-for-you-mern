@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 app.use("/user", userRoutes);
 app.use("/data", dataRoutes);
-app.use("/review", reviewRoutes);
+app.use("/reviews", reviewRoutes);
 app.get("/", (req, res) => {
   res.send("Hello");
 });

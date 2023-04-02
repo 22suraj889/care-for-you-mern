@@ -3,8 +3,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 // generate token
-function generateToken(email) {
-  const token = jwt.sign({ email }, "test", { expiresIn: "1h" });
+function generateToken(email, id) {
+  const token = jwt.sign({ email, id }, "test", { expiresIn: "1h" });
   return token;
 }
 
@@ -24,7 +24,7 @@ const login = async (req, res) => {
       return res.status(404).json({ message: "Password is incorrect" });
     }
 
-    const token = generateToken(email);
+    const token = generateToken(email, user._id);
     res.status(200).json({ result: user, token });
   } catch (e) {
     console.log(e);
@@ -55,7 +55,7 @@ const register = async (req, res) => {
       password: hashedPassword,
     });
 
-    const token = generateToken(email);
+    const token = generateToken(email, newUser._id);
     res.status(200).json({ result: newUser, token });
   } catch (e) {
     console.log(e);

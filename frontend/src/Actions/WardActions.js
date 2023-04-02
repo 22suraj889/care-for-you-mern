@@ -20,5 +20,3 @@ export const putWardData = (ward) => async (dispatch) => {
     console.log(error);
   }
 };
-
-//
