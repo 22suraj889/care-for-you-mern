@@ -16,7 +16,6 @@
 }
 
 .ward_info__details {
-  margin-top: 4vmin;
   display: flex;
   justify-content: space-evenly;
 }

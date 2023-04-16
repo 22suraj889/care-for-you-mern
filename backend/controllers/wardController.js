@@ -1,8 +1,7 @@
 const Ward = require("../models/wardModel");
 
 const postData = async (req, res) => {
-  const { cleanPoints, patientNumber, wardName, wardNumber, workerNumber } =
-    req.body;
+  const { patientNumber, wardName, wardNumber, workerNumber } = req.body;
   console.log(req.body);
   try {
     let existingWard = await Ward.findOne({ wardName });
@@ -12,7 +11,6 @@ const postData = async (req, res) => {
     }
 
     const newWard = await Ward.create({
-      cleanPoints,
       patientNumber,
       wardName,
       wardNumber,
@@ -35,4 +33,27 @@ const getData = async (req, res) => {
   }
 };
 
-module.exports = { postData, getData };
+const editData = async (req, res) => {
+  const newData = { wardName, wardNumber, patientNumber, workerNumber };
+  const { id } = req.params;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).send("No ward with that id");
+    }
+    const updatedWard = await Ward.findByIdAndUpdate(
+      id,
+      {
+        ...wardName,
+        wardNumber,
+        patientNumber,
+        workerNumber,
+      },
+      { new: true }
+    );
+    console.log(updatedWard);
+    res.json(updatedWard);
+  } catch (error) {
+    console.log(error);
+  }
+};
+module.exports = { postData, getData, editData };

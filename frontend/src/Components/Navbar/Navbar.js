@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeWard } from "../../Actions/ChangeWardActions";
 
 const Navbar = ({ wards }) => {
@@ -7,11 +7,14 @@ const Navbar = ({ wards }) => {
   const setCurrentWard = (ward) => {
     dispatch(changeWard(ward));
   };
+  const selectedWard = useSelector((state) => state.wardName);
   return (
-    <nav className="flex flex-col w-1/5 justify-around items-center bg-teal-300">
+    <nav className="flex overflow-y-scroll flex-col w-1/4 justify-around items-center bg-teal-300">
       {wards.map((ward) => (
         <li
-          className="list-none font-medium text-lg hover:text-orange-600 cursor-pointer"
+          className={`list-none hover:text-orange-600 font-medium text-lg ${
+            selectedWard === ward ? "text-orange-600" : "black"
+          } cursor-pointer`}
           onClick={() => setCurrentWard(ward)}
           key={ward}
         >

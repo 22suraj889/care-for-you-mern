@@ -12,7 +12,6 @@ API.interceptors.request.use((req) => {
 const baseURL = "http://localhost:5000";
 
 export const registerUser = (authData) => {
-  console.log(authData);
   return API.post(`${baseURL}/user/register`, authData);
 };
 
@@ -25,15 +24,19 @@ export const fetchWardData = () => {
 };
 
 export const postWardData = (wardData) => {
-  return API.post(`${baseURL}/data`, wardData);
+  return API.post(`${baseURL}/data/addWard`, wardData);
+};
+
+export const editWardData = (id, updatedData) => {
+  return API.patch(`${baseURL}/data/editWard/${id}`, updatedData);
 };
 
 export const fetchReview = () => {
   return API.get(`${baseURL}/reviews`);
 };
 
-export const postReview = (id, review) => {
-  return API.post(`${baseURL}/reviews/${id}`, review);
+export const postReview = (review) => {
+  return API.post(`${baseURL}/reviews/`, review);
 };
 
 export const upvoteReview = (id) => {

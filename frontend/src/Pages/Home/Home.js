@@ -10,7 +10,6 @@ const Home = React.memo(() => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("called");
     dispatch(getWardData());
   }, []);
 
@@ -26,13 +25,14 @@ const Home = React.memo(() => {
     <div className="flex h-screen">
       <Navbar wards={wards} />
       {currentWardData && <Ward currentWardData={currentWardData} />}
+
       <div>
         <Button
           variant="contained"
           style={{
             position: "absolute",
             bottom: "1.3vmin",
-            right: "108vmin",
+            right: "97vmin",
             backgroundColor: "#0bd1bc",
             color: "white",
             fontWeight: "bold",
@@ -46,7 +46,7 @@ const Home = React.memo(() => {
           style={{
             position: "absolute",
             bottom: "1.3vmin",
-            right: "63vmin",
+            right: "72vmin",
             fontWeight: "bold",
           }}
           onClick={() => navigate(`/${currentWard}/addReview`)}

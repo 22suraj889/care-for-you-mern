@@ -3,7 +3,20 @@ import PatientIcon from "../../../assets/icons/patient.png";
 import WorkerIcon from "../../../assets/icons/worker.png";
 import Review from "../../../Components/Review/Review";
 import "./Ward.css";
+import { Button } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 const Ward = ({ currentWardData }) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const navigate = useNavigate();
+  const onEditWardButtonClickHandler = (e) => {
+    let currentWardName = currentWardData.wardName;
+    currentWardName = currentWardName.replace(/\s/g, "").toLowerCase();
+    navigate(`/${currentWardName}/edit`);
+  };
+
+  const onAddWardButtonClickHandler = () => {
+    navigate("/addWard");
+  };
   return (
     <div className="ward_info w-full justify-around">
       <div className="ward_info__name">
@@ -21,6 +34,30 @@ const Ward = ({ currentWardData }) => {
           <p>Ward Worker</p>
         </div>
       </div>
+      {user.result.isAdmin && (
+        <div className="flex w-60 justify-between">
+          <Button
+            style={{
+              backgroundColor: "#6b36d6",
+              color: "white",
+              fontWeight: "bold",
+            }}
+            onClick={onEditWardButtonClickHandler}
+          >
+            Edit
+          </Button>
+          <Button
+            style={{
+              backgroundColor: "#6b36d6",
+              color: "white",
+              fontWeight: "bold",
+            }}
+            onClick={onAddWardButtonClickHandler}
+          >
+            Add Ward
+          </Button>
+        </div>
+      )}
       <div className="ward_info__review">
         <Review clean={currentWardData.cleanPoints} />
       </div>
