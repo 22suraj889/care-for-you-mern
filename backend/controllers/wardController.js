@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Ward = require("../models/wardModel");
 
 const postData = async (req, res) => {
@@ -34,8 +35,10 @@ const getData = async (req, res) => {
 };
 
 const editData = async (req, res) => {
-  const newData = { wardName, wardNumber, patientNumber, workerNumber };
+  const { wardName, wardNumber, patientNumber, workerNumber } = req.body;
   const { id } = req.params;
+  console.log(id);
+  console.log(wardName, wardNumber, patientNumber, workerNumber);
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(404).send("No ward with that id");
@@ -43,7 +46,7 @@ const editData = async (req, res) => {
     const updatedWard = await Ward.findByIdAndUpdate(
       id,
       {
-        ...wardName,
+        wardName,
         wardNumber,
         patientNumber,
         workerNumber,

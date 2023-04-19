@@ -6,12 +6,12 @@ import { getWardData } from "../../Actions/WardActions";
 import Navbar from "../../Components/Navbar/Navbar";
 import Ward from "./Ward/Ward";
 
-const Home = React.memo(() => {
+const Home = React.memo(({ updatedId, setUpdatedId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(getWardData());
-  }, []);
+  }, [navigate, dispatch]);
 
   const wardsData = useSelector((state) => state.wards);
   let currentWard = useSelector((state) => state.wardName);
@@ -24,8 +24,7 @@ const Home = React.memo(() => {
   return (
     <div className="flex h-screen">
       <Navbar wards={wards} />
-      {currentWardData && <Ward currentWardData={currentWardData} />}
-
+      <Ward currentWardData={currentWardData} setUpdatedId={setUpdatedId} />
       <div>
         <Button
           variant="contained"
@@ -46,7 +45,7 @@ const Home = React.memo(() => {
           style={{
             position: "absolute",
             bottom: "1.3vmin",
-            right: "72vmin",
+            right: "66vmin",
             fontWeight: "bold",
           }}
           onClick={() => navigate(`/${currentWard}/addReview`)}

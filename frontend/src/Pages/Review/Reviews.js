@@ -46,8 +46,6 @@ const Reviews = ({ ward }) => {
   useEffect(() => {
     let categoryReview;
     const wardReviews = allReviews.filter((review) => review.ward === ward);
-    console.log(wardReviews);
-    console.log(selectedCategory);
     if (selectedCategory === "Positive" || selectedCategory === "Negative") {
       categoryReview = wardReviews.filter(
         (r) => r.sentiment.toLowerCase() === selectedCategory.toLowerCase()

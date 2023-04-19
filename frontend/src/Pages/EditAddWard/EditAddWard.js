@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, TextField } from "@material-ui/core";
 import HospitalBg from "./hospital-background.jpg"; // Import the hospital background image
 import { useDispatch } from "react-redux";
 import { putWardData, updateWardData } from "../../Actions/WardActions";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function WardForm({ updatedId, setUpdatedId }) {
   const [wardData, setWardData] = useState({
@@ -15,6 +15,13 @@ function WardForm({ updatedId, setUpdatedId }) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  useEffect(() => {
+    console.log("Hi");
+    if (location?.state?.currentWardData)
+      setWardData(location?.state?.currentWardData);
+  }, [navigate]);
+
   const clearHandler = () => {
     setUpdatedId(0);
     setWardData({
@@ -30,12 +37,11 @@ function WardForm({ updatedId, setUpdatedId }) {
     if (updatedId === 0) {
       console.log(wardData);
       dispatch(putWardData(wardData));
-      clearHandler();
     } else {
       console.log(updatedId);
       dispatch(updateWardData(updatedId, wardData));
-      clearHandler();
     }
+    clearHandler();
     navigate("/");
   };
 
@@ -48,7 +54,9 @@ function WardForm({ updatedId, setUpdatedId }) {
         onSubmit={handleSubmit}
         className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg px-8 py-6 w-full"
       >
-        <h2 className="text-2xl text-center font-semibold mb-4">Covid Ward</h2>
+        <h2 className="text-2xl text-center font-semibold mb-4">
+          {updatedId ? "Edit Ward" : "Add Ward"}
+        </h2>
         <div className="mb-4">
           <TextField
             label="Ward Name"
@@ -57,7 +65,7 @@ function WardForm({ updatedId, setUpdatedId }) {
             onChange={(e) => {
               setWardData({
                 ...wardData,
-                wardName: e.target.value.toUpperCase(),
+                wardName: e.target.value,
               });
             }}
             fullWidth
