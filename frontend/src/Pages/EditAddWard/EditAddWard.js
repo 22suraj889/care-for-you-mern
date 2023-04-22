@@ -4,6 +4,7 @@ import HospitalBg from "./hospital-background.jpg"; // Import the hospital backg
 import { useDispatch } from "react-redux";
 import { putWardData, updateWardData } from "../../Actions/WardActions";
 import { useLocation, useNavigate } from "react-router-dom";
+import { changeWard } from "../../Actions/ChangeWardActions";
 
 function WardForm({ updatedId, setUpdatedId }) {
   const [wardData, setWardData] = useState({
@@ -41,6 +42,7 @@ function WardForm({ updatedId, setUpdatedId }) {
       console.log(updatedId);
       dispatch(updateWardData(updatedId, wardData));
     }
+    dispatch(changeWard(wardData.wardName));
     clearHandler();
     navigate("/");
   };

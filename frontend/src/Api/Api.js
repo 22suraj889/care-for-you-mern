@@ -9,6 +9,21 @@ API.interceptors.request.use((req) => {
   }
   return req;
 });
+
+axios.interceptors.response.use(
+  (response) => {
+    // Do something with the response data
+    return response;
+  },
+  (error) => {
+    // Do something with the response error
+    if (error.response.status === 401) {
+      localStorage.removeItem("profile");
+    }
+    return Promise.reject(error);
+  }
+);
+
 const baseURL = "http://localhost:5000";
 
 export const registerUser = (authData) => {
