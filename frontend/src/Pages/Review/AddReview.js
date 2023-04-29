@@ -7,7 +7,7 @@ import Sentiment from "sentiment";
 import Hospital from "./hospital.jpg";
 const sentiment = new Sentiment();
 
-const AddReview = ({ ward }) => {
+const AddReview = ({ ward, wardId }) => {
   const [userReview, setUserReview] = useState({
     name: "",
     review: "",
@@ -24,9 +24,9 @@ const AddReview = ({ ward }) => {
     console.log(result);
     let review;
     if (result.score < 0) {
-      review = { ...userReview, ward, sentiment: "negative" };
+      review = { ...userReview, wardId, sentiment: "negative" };
     } else if (result.score >= 0) {
-      review = { ...userReview, ward, sentiment: "positive" };
+      review = { ...userReview, wardId, sentiment: "positive" };
     }
     console.log(review);
     dispatch(postWardReview(review));

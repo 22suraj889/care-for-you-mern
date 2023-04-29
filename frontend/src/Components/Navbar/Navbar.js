@@ -9,10 +9,12 @@ const Navbar = ({ wards }) => {
   };
   const selectedWard = useSelector((state) => state.wardName);
   return (
-    <nav className="flex overflow-y-scroll flex-col w-1/4 justify-around items-center bg-teal-300">
-      {wards.map((ward) => (
+    <nav className="overflow-y-scroll flex-col w-1/4 items-center bg-teal-300">
+      {wards.map((ward, index) => (
         <li
-          className={`list-none hover:text-orange-600 font-medium text-lg ${
+          className={`list-none hover:text-orange-600 mb-3 ${
+            index === 0 ? "mt-3" : "mt-32"
+          } ms-6 text-center font-medium text-lg ${
             selectedWard === ward ? "text-orange-600" : "black"
           } cursor-pointer`}
           onClick={() => setCurrentWard(ward)}

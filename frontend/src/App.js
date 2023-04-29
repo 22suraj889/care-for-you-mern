@@ -12,7 +12,7 @@ function App() {
   const [updatedId, setUpdatedId] = useState(0);
   const location = useLocation();
   let currentWard = useSelector((state) => state.wardName);
-  const ward = currentWard;
+  const wardName = currentWard;
   currentWard = currentWard.replace(/\s/g, "").toLowerCase();
 
   useEffect(() => {
@@ -25,6 +25,13 @@ function App() {
       window.removeEventListener("popstate", handleBackButton);
     };
   }, []);
+
+  // getting the currentWard Id from its name
+  const allWardData = useSelector((state) => state.wards);
+  const currentWardData = allWardData.find(
+    (ward) => ward.wardName === wardName
+  );
+  console.log(currentWardData);
   return (
     <div>
       {location.pathname !== "/auth" && <LogoutHandler />}
@@ -36,11 +43,11 @@ function App() {
         />
         <Route
           path={`/${currentWard}/reviews`}
-          element={<Reviews ward={ward} />}
+          element={<Reviews ward={wardName} wardId={currentWardData?._id} />}
         />
         <Route
           path={`/${currentWard}/addReview`}
-          element={<AddReview ward={ward} />}
+          element={<AddReview ward={wardName} wardId={currentWardData?._id} />}
         />
         <Route
           path={`/${currentWard}/edit`}

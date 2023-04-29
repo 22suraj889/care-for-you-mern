@@ -30,7 +30,7 @@ const UnfilledRating = ({ notFilled }) => {
 };
 
 const category = ["All", "Positive", "Negative"];
-const Reviews = ({ ward }) => {
+const Reviews = ({ ward, wardId }) => {
   const [currentWardReviews, setCurrentWardReviews] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const Reviews = ({ ward }) => {
 
   useEffect(() => {
     let categoryReview;
-    const wardReviews = allReviews.filter((review) => review.ward === ward);
+    const wardReviews = allReviews.filter((review) => review.wardId === wardId);
     if (selectedCategory === "Positive" || selectedCategory === "Negative") {
       categoryReview = wardReviews.filter(
         (r) => r.sentiment.toLowerCase() === selectedCategory.toLowerCase()

@@ -11,13 +11,13 @@ const getReview = async (req, res) => {
 };
 
 const postReview = async (req, res) => {
-  const { name, review, rating, ward, sentiment } = req.body;
+  const { name, review, rating, wardId, sentiment } = req.body;
   try {
     const newReview = await Review.create({
       name,
       review,
       rating,
-      ward,
+      wardId,
       sentiment,
     });
     res.status(200).json({
