@@ -51,6 +51,7 @@ export const fetchReview = () => {
 };
 
 export const postReview = (review) => {
+  console.log("Review Posted");
   return API.post(`${baseURL}/reviews/`, review);
 };
 

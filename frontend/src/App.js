@@ -31,7 +31,6 @@ function App() {
   const currentWardData = allWardData.find(
     (ward) => ward.wardName === wardName
   );
-  console.log(currentWardData);
   return (
     <div>
       {location.pathname !== "/auth" && <LogoutHandler />}

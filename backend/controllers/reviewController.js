@@ -20,10 +20,7 @@ const postReview = async (req, res) => {
       wardId,
       sentiment,
     });
-    res.status(200).json({
-      message: `New review added to the ward ${ward.wardName}`,
-    });
-    console.log(newReview);
+    res.status(200).json(newReview);
   } catch (error) {
     console.log(error);
   }
