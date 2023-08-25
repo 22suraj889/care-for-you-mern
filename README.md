@@ -1,7 +1,7 @@
 # Care for You
 
 ## Frontend ##
-* Used Reactjs to make the frontend of the web application. 
+* Used Reactjs to create the frontend of the web application. 
 * Material UI and tailwind css for making the UI look attractive.
 * Used Redux to manage React store. 
 
