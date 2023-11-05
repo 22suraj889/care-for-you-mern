@@ -1,4 +1,4 @@
-# Care for You...
+# Care for You
 
 ## Frontend ##
 * Used Reactjs to create the frontend of the web application. 
